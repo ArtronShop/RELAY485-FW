@@ -191,7 +191,7 @@ void ModbusSlaveProcess(UART_HandleTypeDef *huart) {
     modbus_state = 7;
   } else if (modbus_state == 7) { // CRC HIGH
     crc_req |= ((uint16_t) c) << 8;
-    crc_check = CRC16(modbus_data_buffer, 6);
+    crc_check = CRC16(modbus_data_buffer, modbus_data_buffer_index - 2);
     if (crc_check == crc_req) { // Check CRC
       req_process_modbus_flag = true;
     }
